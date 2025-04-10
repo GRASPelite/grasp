@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G.R.A.S.P. | Grip Rresposnse and Support Platform</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #f5f5f7;
+            --secondary: #a1a1a6;
+            --accent: #2997ff;
+            --dark: #000;
+            --dark-gray: #1d1d1f;
+            --medium-gray: #2d2d2d;
+            --light-gray: #424245;
+            --subtle: rgba(255,255,255,0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 56px;
+            line-height: 1.07;
+            letter-spacing: -0.005em;
+        }
+        
+        h2 {
+            font-size: 48px;
+            line-height: 1.1;
+            letter-spacing: -0.003em;
+        }
+        
+        h3 {
+            font-size: 28px;
+            line-height: 1.14;
+        }
+        
+        p {
+            font-size: 17px;
+            line-height: 1.47;
+            letter-spacing: -0.022em;
+            color: var(--secondary);
+        }
+        
+        .large-text {
+            font-size: 21px;
+            line-height: 1.38;
+            letter-spacing: 0.011em;
+            font-weight: 400;
+            color: var(--secondary);
+        }
+        
+        .caption {
+            font-size: 12px;
+            line-height: 1.33;
+            letter-spacing: -0.01em;
+            color: var(--gray);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            transition: background-color 0.5s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 48px;
+        }
+        
+        .logo {
+            font-weight: 600;
+            font-size: 21px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-color: var(--dark);
+            overflow: hidden;
+            margin-bottom: 0; /* Remove default margin */
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 48px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+        
+        .hero p {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+        
+        .hero-image {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 1000px;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards 0.6s;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 980px;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 17px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards 0.6s;
+        }
+        
+        .btn:hover {
+            background-color: #2b82d6;
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background-color: transparent;
+            color: #2b82d6;
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section.light {
+            background-color: var(--light);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-header h2 {
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--secondary);
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .feature-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--subtle);
+            position: relative;
+        }
+        
+        .feature-img img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+        }
+        
+        .feature-content {
+            padding: 24px;
+        }
+        
+        .feature-content h3 {
+            margin-bottom: 12px;
+        }
+
+        /* Device Showcase */
+        .device-showcase {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .device-display {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin-bottom: 60px;
+        }
+        
+        .device-image {
+            width: 130%;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+        
+        .device-specs {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .spec-item {
+            text-align: center;
+            flex: 1;
+            padding: 0 16px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .spec-item.visible {
+            animation: fadeUp 0.6s ease forwards;
+        }
+        
+        .spec-number {
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        
+        .spec-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 40px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .member-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 24px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member:hover .member-photo {
+            transform: translateY(-10px);
+        }
+        
+        .member-name {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .member-role {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 769px) {
+            /* Target Mustafa (5th) and Waleed (6th) */
+            .team-member:nth-child(5),
+            .team-member:nth-child(6) {
+                grid-column: span 1; /* Ensure they take normal space */
+            }
+            
+            /* Center the pair */
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr); /* 4 columns */
+                justify-items: center;
+            }
+            
+            /* Position Mustafa and Waleed in center columns */
+            .team-member:nth-child(5) {
+                grid-column: 2; /* Second column */
+            }
+            .team-member:nth-child(6) {
+                grid-column: 3; /* Third column */
+            }
+        }
+
+        /* Contact Form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            background-color: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.05);
+        }
+        
+        .contact-info {
+            padding: 48px;
+            border-radius: 24px 0 0 24px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 24px;
+        }
+        
+        .contact-info .large-text {
+            margin-bottom: 32px;
+        }
+        
+        .contact-details {
+            margin-bottom: 40px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .contact-detail span {
+            margin-left: 12px;
+        }
+        
+        .form-container {
+            padding: 48px;
+            background-color: var(--subtle);
+            border-radius: 0 24px 24px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0,113,227,0.1);
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #2b82d6;
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--subtle);
+            color: var(--white);
+            padding: 60px 0 24px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-about p {
+            margin-bottom: 24px;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 24px;
+            font-size: 16px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+        }
+
+        /* Scrolling Image Section */
+        .scrolling-image-section {
+            position: relative;
+            height: 200px; /* Increased height for better visibility */
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+        }
+        
+        .scrolling-image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .scrolling-image {
+            position: absolute;
+            height: 100%;
+            width: 20%;
+            left: 0;
+            transform: translateX(-100%); /* Start completely left */
+            will-change: transform;
+            transition: transform 0.1s linear; /* Faster response */
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%);
+            }
+            50% {
+                transform: translate(-50%, -53%);
+            }
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 42px;
+            }
+            
+            h2 {
+                font-size: 36px;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                border-radius: 24px 24px 0 0;
+            }
+            
+            .form-container {
+                border-radius: 0 0 24px 24px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .device-specs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .spec-item {
+                margin-bottom: 40px;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 28px;
+            }
+            
+            .large-text {
+                font-size: 18px;
+            }
+            
+            .hero-content {
+                padding-top: 80px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">G.R.A.S.P.</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Redefining Hand Stability</h1>
+                <p class="large-text">G.R.A.S.P. utilizes advanced sensor technology and precision servo motors to counteract hand tremors, returning control to those affected by Parkinson's disease.</p>
+                <a href="#about" class="btn">Discover G.R.A.S.P.</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Right after the hero section -->
+    <div class="scrolling-image-section">
+        <div class="scrolling-image-wrapper">
+            <img src="x.png" alt="Scrolling Visual Element" class="scrolling-image">
+        </div>
+    </div>
+
+    <section id="about" class="light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Designed for Real Life</h2>
+                <p>G.R.A.S.P. is more than a medical device — it's a pathway to restored independence and confidence.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="portrait2.png" alt="Lightweight Materials">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Accessible Materials</h3>
+                        <p>Built with cardboard, foam, plastic, and some metal parts to keep it lightweight and easy to use for everyone. Our focus was on creating an affordable prototype that demonstrates the core concept.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="z2.png" alt="Control System">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Basic Control System</h3>
+                        <p>Our current prototype uses a control panel that receives input and coordinates with batteries to deliver the right amount of power to servo motors, helping stabilize finger movements.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="parkinsons.png" alt="Parkinson's Assistance">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Parkinson's Assistance</h3>
+                        <p>Designed to help with hand tremors from Parkinson's disease, our prototype demonstrates how simple technology can enhance grip stability and hand control.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology">
+        <div class="container">
+            <div class="section-header">
+                <h2>Precision Engineering</h2>
+                <p>Every component of G.R.A.S.P. has been meticulously designed to work in perfect harmony.</p>
+            </div>
+            <div class="device-showcase">
+                <div class="device-display">
+                    <img src="y2.png" alt="G.R.A.S.P. Technology" class="device-image">
+                </div>
+                <div class="device-specs">
+                    <div class="spec-item" id="spec1">
+                        <div class="spec-number">v0.9</div>
+                        <div class="spec-label">PROTOTYPE VERSION</div>
+                    </div>
+                    <div class="spec-item" id="spec2">
+                        <div class="spec-number">4</div>
+                        <div class="spec-label">MATERIAL TYPES USED</div>
+                    </div>
+                    <div class="spec-item" id="spec3">
+                        <div class="spec-number">2x</div>
+                        <div class="spec-label">9G SERVO MOTORS (180°)</div>
+                    </div>
+                    <div class="spec-item" id="spec4">
+                        <div class="spec-number">+35%</div>
+                        <div class="spec-label">GRIP STRENGTH IMPROVEMENT</div>
+                    </div>
+                </div>                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="light">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Minds Behind G.R.A.S.P.</h2>
+                <p>Our interdisciplinary team brings together expertise from medicine, engineering, and design.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="samir.png" alt="Samir">
+                    </div>
+                    <div class="member-name">Samir</div>
+                    <div class="member-role">Project Lead</div>
+                    <p>Expert in sensor technology and micro-motor systems.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="nabil.png" alt="Nabil">
+                    </div>
+                    <div class="member-name">Nabil</div>
+                    <div class="member-role">Hardware Engineer</div>
+                    <p>Specializes in medical device design and ergonomics.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="/api/placeholder/300/300" alt="Abdulhamid">
+                    </div>
+                    <div class="member-name">Abdulhamid</div>
+                    <div class="member-role">Software Developer</div>
+                    <p>Specializes in control algorithms and signal processing.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="ahmed.png" alt="Ahmed">
+                    </div>
+                    <div class="member-name">Ahmed</div>
+                    <div class="member-role">UX Designer</div>
+                    <p>Focuses on making G.R.A.S.P. intuitive and accessible.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="mustafa.png" alt="Mustafa">
+                    </div>
+                    <div class="member-name">Mustafa</div>
+                    <div class="member-role">Medical Consultant</div>
+                    <p>Provides expertise in Parkinson's treatment and patient needs.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="/api/placeholder/300/300" alt="Waleed">
+                    </div>
+                    <div class="member-name">Waleed</div>
+                    <div class="member-role">Electronics Engineer</div>
+                    <p>Specializes in circuit design and power management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Join the Movement</h2>
+                <p>Connect with us to learn more about G.R.A.S.P. or to contribute to our mission.</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p class="large-text">We're always looking for feedback and collaboration opportunities to improve the G.R.A.S.P. platform.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <span>info.elite.grasp@gmail.com</span>
+                        </div>
+                        <div class="contact-detail">
+                            <span>06 550 0200</span>
+                        </div>
+                        <div class="contact-detail">
+                            <span>Al Sumood - 83 St - Sharjah</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <form action="https://formspree.io/f/xvgkddql" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                    <div id="form-message" style="display: none; margin-top: 20px; padding: 15px; 
+                        background: rgba(41, 151, 255, 0.1); border-radius: 8px; color: var(--accent);">
+                    </div>
+                </div>
+                </div>
+            </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">G.R.A.S.P.</div>
+                    <p>Grip Response and Support Platform — Redefining stability for those with Parkinson's disease through innovative technology and human-centered design.</p>
+                    <p>Elite School 11th grade Project.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#technology">Technology</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">User Testimonials</a></li>
+                        <li><a href="#">Clinical Trials</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 G.R.A.S.P. Project. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-based animations
+        window.addEventListener('scroll', function() {
+            const scrolled = window.scrollY; // Define scrolled variable
+            
+            // Scrolling image animation
+            const scrollingImage = document.querySelector('.scrolling-image');
+            if (scrollingImage) {
+                const hero = document.querySelector('.hero');
+                const imageSection = document.querySelector('.scrolling-image-section');
+                
+                const sectionStart = hero.offsetTop + hero.offsetHeight - window.innerHeight;
+                const sectionEnd = sectionStart + imageSection.offsetHeight + window.innerHeight;
+                
+                if (scrolled >= sectionStart && scrolled <= sectionEnd) {
+                    const progress = (scrolled - sectionStart) / (sectionEnd - sectionStart);
+                    const moveX = -100 + (progress * 650);
+                    scrollingImage.style.transform = `translateX(${moveX}%)`;
+                }
+            }
+            
+            // Animate spec items on scroll - THIS IS THE CRUCIAL PART
+        const specItems = document.querySelectorAll('.spec-item');
+        if (specItems.length) {
+            const specsSection = document.querySelector('.device-specs').offsetTop + 
+                                document.getElementById('technology').offsetTop;
+            specItems.forEach((item, index) => {
+                if (scrolled > specsSection - 800) {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }
+    });
+    
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                const headerOffset = 60;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    
+        // Initialize specs as visible if already scrolled
+        window.addEventListener('load', function() {
+            if (window.scrollY > document.getElementById('technology').offsetTop - (window.innerHeight / 2)) {
+                document.querySelectorAll('.spec-item').forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.opacity = 1;
+                        item.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }
+        });
+
+        // Scroll to top when page is loaded or refreshed
+            window.onload = function() {
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 0); // Tiny delay ensures it works on all browsers
+            };
+    </script>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const button = form.querySelector('button');
+          const message = document.getElementById('form-message');
+          
+          // Visual loading state
+          button.disabled = true;
+          button.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="vertical-align: middle; margin-right: 8px;">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" 
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Sending...
+          `;
+          message.style.display = 'none';
+          
+          try {
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+              message.textContent = '✓ Message sent successfully! We\'ll reply soon.';
+              message.style.display = 'block';
+              message.style.color = '#4BB543'; // Green
+              form.reset();
+              
+              // Scroll to show message if needed
+              setTimeout(() => {
+                message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }, 100);
+            } else {
+              throw new Error('Server error');
+            }
+          } catch (error) {
+            message.innerHTML = '⚠️ Error sending message. Please email us directly at <strong>info@graspproject.org</strong>';
+            message.style.display = 'block';
+            message.style.color = '#ff3b30'; // Red
+          } finally {
+            button.disabled = false;
+            button.textContent = 'Send Message';
+          }
+        });
+      </script>
+</body>
+</html>
